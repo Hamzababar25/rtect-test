@@ -12,17 +12,24 @@ import { LiaWalletSolid } from "react-icons/lia";
 import { HiOutlineUsers } from "react-icons/hi2";
 import { SlPlus } from "react-icons/sl";
 import { CgNotes } from "react-icons/cg";
+import { IoMailOutline } from "react-icons/io5";
 
 export default function Sidebar() {
   const pathname = usePathname();
   const [isCreditPlansOpen, setIsCreditPlansOpen] = useState(false);
+  const [isAppOpen, setIsAppOpen] = useState(false);
   const [isResellerOpen, setIsResellerOpen] = useState(false);
   const [isLogsOpen, setIsLogsOpen] = useState(false);
-
+  const [isTicketsOpen, setIsTicketsOpen] = useState(false);
+  const [isPlaylistOpen, setIsPlaylistOpen] = useState(false);
+  const [isSettingOpen, setIsSettingOpen] = useState(false);
   useEffect(() => {
-    setIsCreditPlansOpen(pathname.startsWith("/credit-plans"));
+    setIsCreditPlansOpen(pathname.startsWith("/CreditPlan"));
     setIsResellerOpen(pathname.startsWith("/reseller"));
-    setIsResellerOpen(pathname.startsWith("/logs"));
+    setIsResellerOpen(pathname.startsWith("/Logs"));
+    setIsTicketsOpen(pathname.startsWith("/Tickets"));
+    setIsPlaylistOpen(pathname.startsWith("/Tickets"));
+    setIsSettingOpen(pathname.startsWith("/Tickets"));
   }, [pathname]);
 
   const linkClass = (path) =>
@@ -52,12 +59,12 @@ export default function Sidebar() {
         />
       </div>
 
-      <nav className="p-4">
-        <ul className="space-y-3">
+      <nav className=" px-4">
+        <ul className="space-y-1">
           {/* Dashboard */}
           <li className=" ">
-            <Link href="/dashboard" className={linkClass("/dashboard")}>
-              <RxDashboard className="mr-3 text-xl" />
+            <Link href="/Dashboard" className={linkClass("/Dashboard")}>
+              <RxDashboard className="mr-3 text-lg" />
               Dashboard
             </Link>
           </li>
@@ -67,13 +74,13 @@ export default function Sidebar() {
             <div
               onClick={() => setIsCreditPlansOpen(!isCreditPlansOpen)}
               className={`flex items-center justify-between cursor-pointer p-2 rounded-lg transition-all ${
-                pathname.startsWith("/credit-plans")
+                pathname.startsWith("/CreditPlan")
                   ? "bg-gradient-to-r from-[#3CCACC] to-[#8E37D7] text-white py-4 px-3"
                   : ""
               } hover:bg-gradient-to-r from-[#3CCACC] to-[#8E37D7] py-4 px-3`}
             >
               <div className="flex items-center">
-                <LiaWalletSolid className="mr-2 text-2xl " />
+                <LiaWalletSolid className="mr-2 text-lg " />
                 Credit Plans
               </div>
               {isCreditPlansOpen ? <BsChevronUp /> : <BsChevronDown />}
@@ -82,25 +89,25 @@ export default function Sidebar() {
               <ul className="ml-8 mt-2 space-y-2">
                 <li>
                   <Link
-                    href="/credit-plans/view"
-                    className={dropdownLinkClass("/credit-plans/view")}
+                    href="/CreditPlan/PaymentPlan"
+                    className={dropdownLinkClass("/CreditPlan/PaymentPlan")}
                   >
                     {" "}
                     <span className="flex items-center gap-3">
-                      <LiaWalletSolid className=" text-2xl " />
+                      <LiaWalletSolid className=" text-lg " />
                       Payment Plans
                     </span>
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="/credit-plans/add"
-                    className={dropdownLinkClass("/credit-plans/add")}
+                    href="/CreditPlan/Billing"
+                    className={dropdownLinkClass("/CreditPlan/Billing")}
                   >
                     {" "}
                     <span className="flex items-center gap-3">
-                      <LiaWalletSolid className=" text-2xl " />
-                      Payment Plans
+                      <LiaWalletSolid className=" text-lg " />
+                      Billing
                     </span>
                   </Link>
                 </li>
@@ -111,7 +118,7 @@ export default function Sidebar() {
           {/* App Activation */}
           <li>
             <div
-              onClick={() => setIsCreditPlansOpen(!isCreditPlansOpen)}
+              onClick={() => setIsAppOpen(!isAppOpen)}
               className={`flex items-center justify-between cursor-pointer p-2 rounded-lg transition-all ${
                 pathname.startsWith("/credit-plans")
                   ? "bg-gradient-to-r from-[#3CCACC] to-[#8E37D7] text-white py-4 px-3"
@@ -119,12 +126,12 @@ export default function Sidebar() {
               } hover:bg-gradient-to-r from-[#3CCACC] to-[#8E37D7] py-4 px-3`}
             >
               <div className="flex items-center">
-                <HiOutlineUsers className="mr-2 text-2xl " />
+                <HiOutlineUsers className="mr-2 text-lg " />
                 App Activation
               </div>
-              {isCreditPlansOpen ? <BsChevronUp /> : <BsChevronDown />}
+              {isAppOpen ? <BsChevronUp /> : <BsChevronDown />}
             </div>
-            {isCreditPlansOpen && (
+            {isAppOpen && (
               <ul className="ml-8 mt-2 space-y-2">
                 <li>
                   <Link
@@ -133,7 +140,7 @@ export default function Sidebar() {
                   >
                     {" "}
                     <span className="flex items-center gap-3">
-                      <LiaWalletSolid className=" text-2xl " />
+                      <LiaWalletSolid className=" text-lg " />
                       Payment Plans
                     </span>
                   </Link>
@@ -145,18 +152,7 @@ export default function Sidebar() {
                   >
                     {" "}
                     <span className="flex items-center gap-3">
-                      <LiaWalletSolid className=" text-2xl " />
-                      Payment Plans
-                    </span>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/credit-plans/payment"
-                    className={dropdownLinkClass("/credit-plans/payment-plans")}
-                  >
-                    <span className="flex items-center gap-3">
-                      <LiaWalletSolid className=" text-2xl " />
+                      <LiaWalletSolid className=" text-lg " />
                       Payment Plans
                     </span>
                   </Link>
@@ -177,7 +173,7 @@ export default function Sidebar() {
               } hover:bg-gradient-to-r from-[#3CCACC] to-[#8E37D7] py-4 px-3`}
             >
               <div className="flex items-center">
-                <SlPlus className="mr-2 text-2xl " />
+                <SlPlus className="mr-2 text-lg " />
                 Reseller
               </div>
               {isResellerOpen ? <BsChevronUp /> : <BsChevronDown />}
@@ -189,7 +185,10 @@ export default function Sidebar() {
                     href="/credit-plans/view"
                     className={dropdownLinkClass("/reseller/view")}
                   >
-                    View Plans
+                    <span className="flex items-center gap-3">
+                      <LiaWalletSolid className="mr-2 text-lg " />
+                      Payment Plans
+                    </span>
                   </Link>
                 </li>
                 <li>
@@ -198,7 +197,7 @@ export default function Sidebar() {
                     className={dropdownLinkClass("/reseller/add")}
                   >
                     <span className="flex items-center gap-3">
-                      <LiaWalletSolid className="mr-2 text-2xl " />
+                      <LiaWalletSolid className="mr-2 text-lg " />
                       Payment Plans
                     </span>
                   </Link>
@@ -217,7 +216,7 @@ export default function Sidebar() {
               } hover:bg-gradient-to-r from-[#3CCACC] to-[#8E37D7] py-4 px-3`}
             >
               <div className="flex items-center">
-                <CgNotes className="mr-2 text-2xl " />
+                <CgNotes className="mr-2 text-lg " />
                 Logs
               </div>
               {isLogsOpen ? <BsChevronUp /> : <BsChevronDown />}
@@ -226,25 +225,25 @@ export default function Sidebar() {
               <ul className="ml-8 mt-2 space-y-2">
                 <li>
                   <Link
-                    href="/credit-plans/view"
-                    className={dropdownLinkClass("/logs/view")}
+                    href="/Logs/WithdrawTransaction"
+                    className={dropdownLinkClass("/Logs/WithdrawTransaction")}
                   >
                     {" "}
                     <span className="flex items-center gap-3">
-                      <LiaWalletSolid className=" text-2xl " />
-                      Payment Plans
+                      <LiaWalletSolid className=" text-lg " />
+                      Withdraw Transactions{" "}
                     </span>
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="/credit-plans/add"
-                    className={dropdownLinkClass("/logs/add")}
+                    href="/Logs/CreditTransactions"
+                    className={dropdownLinkClass("/Logs/CreditTransactions")}
                   >
                     {" "}
                     <span className="flex items-center gap-3">
-                      <LiaWalletSolid className=" text-2xl " />
-                      Payment Plans
+                      <LiaWalletSolid className=" text-lg " />
+                      Credit Transactions
                     </span>
                   </Link>
                 </li>
@@ -256,31 +255,43 @@ export default function Sidebar() {
         <ul className="pt-4  space-y-3   ">
           <li>
             <div
-              onClick={() => setIsCreditPlansOpen(!isCreditPlansOpen)}
-              className="flex items-center justify-between cursor-pointer p-2 rounded-lg hover:bg-indigo-600"
+              onClick={() => setIsTicketsOpen(!isTicketsOpen)}
+              className={`flex items-center justify-between cursor-pointer p-2 rounded-lg transition-all ${
+                pathname.startsWith("/Tickets")
+                  ? "bg-gradient-to-r from-[#3CCACC] to-[#8E37D7] text-white py-4 px-3"
+                  : ""
+              } hover:bg-gradient-to-r from-[#3CCACC] to-[#8E37D7] py-4 px-3`}
             >
               <div className="flex items-center">
-                <FaRegCreditCard className="mr-3 text-xl" />
-                Credit Plans
+                <LiaWalletSolid className="mr-2 text-lg " />
+                Tickets
               </div>
-              {isCreditPlansOpen ? <BsChevronUp /> : <BsChevronDown />}
+              {isTicketsOpen ? <BsChevronUp /> : <BsChevronDown />}
             </div>
-            {isCreditPlansOpen && (
+            {isTicketsOpen && (
               <ul className="ml-8 mt-2 space-y-2">
                 <li>
                   <Link
-                    href="/credit-plans/view"
-                    className={linkClass("/credit-plans/view")}
+                    href="/Tickets/TicketsList"
+                    className={dropdownLinkClass("/Tickets/TicketsList")}
                   >
-                    View Plans
+                    {" "}
+                    <span className="flex items-center gap-3">
+                      <LiaWalletSolid className=" text-lg " />
+                      Tickets List
+                    </span>
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="/credit-plans/add"
-                    className={linkClass("/credit-plans/add")}
+                    href="/Tickets"
+                    className={dropdownLinkClass("/Tickets")}
                   >
-                    Add Plan
+                    {" "}
+                    <span className="flex items-center gap-3">
+                      <LiaWalletSolid className=" text-lg " />
+                      Add Tickets
+                    </span>
                   </Link>
                 </li>
               </ul>
@@ -288,72 +299,90 @@ export default function Sidebar() {
           </li>
           <li>
             <Link href="/dashboard" className={linkClass("/dashboard")}>
-              <RxDashboard className="mr-3 text-xl" />
-              Dashboard
+              <RxDashboard className="mr-3 text-lg" />
+              Offer & Notification
             </Link>
           </li>
           <li>
             <div
-              onClick={() => setIsCreditPlansOpen(!isCreditPlansOpen)}
-              className="flex items-center justify-between cursor-pointer p-2 rounded-lg hover:bg-indigo-600"
+              onClick={() => setIsPlaylistOpen(!isPlaylistOpen)}
+              className={`flex items-center justify-between cursor-pointer p-2 rounded-lg transition-all ${
+                pathname.startsWith("/Check")
+                  ? "bg-gradient-to-r from-[#3CCACC] to-[#8E37D7] text-white py-4 px-3"
+                  : ""
+              } hover:bg-gradient-to-r from-[#3CCACC] to-[#8E37D7] py-4 px-3`}
             >
               <div className="flex items-center">
-                <FaRegCreditCard className="mr-3 text-xl" />
-                Credit Plans
+                <LiaWalletSolid className="mr-2 text-lg " />
+                Check Playlist
               </div>
-              {isCreditPlansOpen ? <BsChevronUp /> : <BsChevronDown />}
+              {isPlaylistOpen ? <BsChevronUp /> : <BsChevronDown />}
             </div>
-            {isCreditPlansOpen && (
+            {isPlaylistOpen && (
               <ul className="ml-8 mt-2 space-y-2">
                 <li>
-                  <Link
-                    href="/credit-plans/view"
-                    className={linkClass("/credit-plans/view")}
-                  >
-                    View Plans
+                  <Link href="/Credit" className={dropdownLinkClass("/Credit")}>
+                    {" "}
+                    <span className="flex items-center gap-3">
+                      <LiaWalletSolid className=" text-lg " />
+                      Payment Plans
+                    </span>
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="/credit-plans/add"
-                    className={linkClass("/credit-plans/add")}
+                    href="/CreditPlan/Billing"
+                    className={dropdownLinkClass("/Credit")}
                   >
-                    Add Plan
+                    {" "}
+                    <span className="flex items-center gap-3">
+                      <LiaWalletSolid className=" text-lg " />
+                      Billing
+                    </span>
                   </Link>
                 </li>
               </ul>
             )}
           </li>
         </ul>
-        <div className=" mt-6 border-t-2 border-gray-300 opacity-20"></div>
-        <ul className="pt-4  space-y-3   ">
+        <div className=" mt-4 border-t-2 border-gray-300 opacity-20"></div>
+        <ul className="pt-3  space-y-1   ">
           <li>
             <div
-              onClick={() => setIsCreditPlansOpen(!isCreditPlansOpen)}
-              className="flex items-center justify-between cursor-pointer p-2 rounded-lg hover:bg-indigo-600"
+              onClick={() => setIsSettingOpen(!isSettingOpen)}
+              className={`flex items-center justify-between cursor-pointer p-2 rounded-lg transition-all ${
+                pathname.startsWith("/Setting")
+                  ? "bg-gradient-to-r from-[#3CCACC] to-[#8E37D7] text-white py-4 px-3"
+                  : ""
+              } hover:bg-gradient-to-r from-[#3CCACC] to-[#8E37D7] py-4 px-3`}
             >
               <div className="flex items-center">
-                <FiSettings className="mr-3 text-xl" />
+                <FiSettings className="mr-2 text-lg " />
                 Settings
               </div>
-              {isCreditPlansOpen ? <BsChevronUp /> : <BsChevronDown />}
+              {isSettingOpen ? <BsChevronUp /> : <BsChevronDown />}
             </div>
-            {isCreditPlansOpen && (
+            {isSettingOpen && (
               <ul className="ml-8 mt-2 space-y-2">
                 <li>
-                  <Link
-                    href="/credit-plans/view"
-                    className={linkClass("/credit-plans/view")}
-                  >
-                    View Plans
+                  <Link href="/Credit" className={dropdownLinkClass("/Credit")}>
+                    {" "}
+                    <span className="flex items-center gap-3">
+                      <LiaWalletSolid className=" text-lg " />
+                      Payment Plans
+                    </span>
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="/credit-plans/add"
-                    className={linkClass("/credit-plans/add")}
+                    href="/CreditPlan/Billing"
+                    className={dropdownLinkClass("/Credit")}
                   >
-                    Add Plan
+                    {" "}
+                    <span className="flex items-center gap-3">
+                      <LiaWalletSolid className=" text-lg " />
+                      Billing
+                    </span>
                   </Link>
                 </li>
               </ul>
@@ -361,16 +390,16 @@ export default function Sidebar() {
           </li>
           <li>
             <Link href="/dashboard" className={linkClass("/dashboard")}>
-              <RxDashboard className="mr-3 text-xl" />
-              Dashboard
+              <RxDashboard className="mr-3 text-lg" />
+              Profile Settings
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link href="/dashboard" className={linkClass("/dashboard")}>
-              <RxDashboard className="mr-3 text-xl" />
-              Dashboard
+              <RxDashboard className="mr-3 text-lg" />
+              Update Credit Passcode
             </Link>
-          </li>
+          </li> */}
         </ul>
       </nav>
     </aside>
