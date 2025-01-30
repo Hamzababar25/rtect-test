@@ -26,10 +26,10 @@ export default function Sidebar() {
   useEffect(() => {
     setIsCreditPlansOpen(pathname.startsWith("/CreditPlan"));
     setIsResellerOpen(pathname.startsWith("/reseller"));
-    setIsResellerOpen(pathname.startsWith("/Logs"));
+    setIsLogsOpen(pathname.startsWith("/Logs"));
     setIsTicketsOpen(pathname.startsWith("/Tickets"));
-    setIsPlaylistOpen(pathname.startsWith("/Tickets"));
-    setIsSettingOpen(pathname.startsWith("/Tickets"));
+    setIsPlaylistOpen(pathname.startsWith("/Play"));
+    setIsSettingOpen(pathname.startsWith("/Settings"));
   }, [pathname]);
 
   const linkClass = (path) =>
@@ -345,8 +345,8 @@ export default function Sidebar() {
             )}
           </li>
         </ul>
-        <div className=" mt-4 border-t-2 border-gray-300 opacity-20"></div>
-        <ul className="pt-3  space-y-1   ">
+        <div className=" mt-1 border-t-2 border-gray-300 opacity-20"></div>
+        <ul className="  space-y-1   ">
           <li>
             <div
               onClick={() => setIsSettingOpen(!isSettingOpen)}
