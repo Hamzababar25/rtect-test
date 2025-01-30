@@ -3,22 +3,20 @@ import { useState } from "react";
 import { Search, ChevronRight, ChevronLeft } from "lucide-react";
 import Header from "@/app/Header";
 
-export default function Billing() {
+export default function CreditTrasaction() {
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage, setRecordsPerPage] = useState(10);
 
-  const billingData = Array.from({ length: 50 }, (_, i) => ({
-    id: i + 1,
-    reseller: "abc",
-    email: "abc@gmail.com",
-    plan: "PRO",
-    amount: "$10",
-    points: 432,
-    status: ["Active", "Pause", "Inactive"][i % 3],
-    transactionId: "ID:234935",
-    date: "11/03/25 ",
+  const CreditData = Array.from({ length: 50 }, (_, i) => ({
+    Type: "AXONLAYER",
+    credit: i + 1000,
+    received: "abc@gmail.com",
+    added: "ab@gmail.com",
+    created: "bdc@gmail.com",
+
+    date: "11/03/25, 12:00:00 AM ",
   }));
-  const totalPages = Math.ceil(billingData.length / recordsPerPage);
+  const totalPages = Math.ceil(CreditData.length / recordsPerPage);
 
   const handleRecordsChange = (e) => {
     setRecordsPerPage(Number(e.target.value));
@@ -29,9 +27,11 @@ export default function Billing() {
     <div className="flex h-screen bg-black text-white">
       <div className="flex-1 p-6">
         <Header />
-        {/* Billing Table */}
+
         <div className="bg-[#14081E] p-6 px-8 mt-6 rounded-lg">
-          <h3 className="text-3xl mb-10">Billing Record</h3>
+          <h3 className="text-3xl mb-10">
+            Credit Point Sharing Transaction Logs:
+          </h3>
           <div className="relative mb-8 w-1/4  h-12">
             <input
               type="text"
@@ -46,36 +46,31 @@ export default function Billing() {
           <table className="w-full text-left">
             <thead>
               <tr className="text-gray-400 border-b border-gray-800">
-                <th className="py-2">Order ID</th>
-                <th>Reseller Name</th>
-                <th>Reseller Email</th>
-                <th>Plan Title</th>
-                <th>Amount</th>
-                <th>Credit Points</th>
-                <th>Status</th>
-                <th>Transaction ID</th>
-                <th>Created At</th>
+                <th className="px-2 py-2">Type</th>
+                <th>Credit Point</th>
+                <th>Received By</th>
+                <th>Added By</th>
+                <th>Created By</th>
+
+                <th className="px-3">Created At</th>
               </tr>
             </thead>
             <tbody>
-              {billingData
-                .slice(
-                  (currentPage - 1) * recordsPerPage,
-                  currentPage * recordsPerPage
-                )
-                .map((item) => (
-                  <tr key={item.id} className="border-b border-gray-800">
-                    <td className="py-2 ">{item.id}</td>
-                    <td className="px-10">{item.reseller}</td>
-                    <td>{item.email}</td>
-                    <td className="px-5">{item.plan}</td>
-                    <td className="px-5">{item.amount}</td>
-                    <td className="px-8">{item.points}</td>
-                    <td>{item.status}</td>
-                    <td className="px-4">{item.transactionId}</td>
-                    <td>{item.date}</td>
-                  </tr>
-                ))}
+              {CreditData.slice(
+                (currentPage - 1) * recordsPerPage,
+                currentPage * recordsPerPage
+              ).map((item) => (
+                <tr key={item.id} className="border-b border-gray-800">
+                  <td className="py-2 ">{item.Type}</td>
+                  <td className="px-6">{item.credit}</td>
+
+                  <td className="">{item.received}</td>
+                  <td className="">{item.added}</td>
+                  <td className="">{item.created}</td>
+
+                  <td className="">{item.date}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
           {/* Pagination and Show Dropdown */}

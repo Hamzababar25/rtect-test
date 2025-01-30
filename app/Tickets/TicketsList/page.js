@@ -3,22 +3,20 @@ import { useState } from "react";
 import { Search, ChevronRight, ChevronLeft } from "lucide-react";
 import Header from "@/app/Header";
 
-export default function Billing() {
+export default function TicketsList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage, setRecordsPerPage] = useState(10);
 
-  const billingData = Array.from({ length: 50 }, (_, i) => ({
-    id: i + 1,
-    reseller: "abc",
-    email: "abc@gmail.com",
-    plan: "PRO",
-    amount: "$10",
-    points: 432,
+  const TicketsData = Array.from({ length: 50 }, (_, i) => ({
+    Title: `abc-${String.fromCharCode(65 + (i % 26))}`,
+    description: "description here",
     status: ["Active", "Pause", "Inactive"][i % 3],
-    transactionId: "ID:234935",
-    date: "11/03/25 ",
+
+    created: "Created at Here",
+
+    Actions: "Actions ",
   }));
-  const totalPages = Math.ceil(billingData.length / recordsPerPage);
+  const totalPages = Math.ceil(TicketsData.length / recordsPerPage);
 
   const handleRecordsChange = (e) => {
     setRecordsPerPage(Number(e.target.value));
@@ -29,9 +27,9 @@ export default function Billing() {
     <div className="flex h-screen bg-black text-white">
       <div className="flex-1 p-6">
         <Header />
-        {/* Billing Table */}
+
         <div className="bg-[#14081E] p-6 px-8 mt-6 rounded-lg">
-          <h3 className="text-3xl mb-10">Billing Record</h3>
+          <h3 className="text-3xl mb-10">Tickets List</h3>
           <div className="relative mb-8 w-1/4  h-12">
             <input
               type="text"
@@ -46,36 +44,27 @@ export default function Billing() {
           <table className="w-full text-left">
             <thead>
               <tr className="text-gray-400 border-b border-gray-800">
-                <th className="py-2">Order ID</th>
-                <th>Reseller Name</th>
-                <th>Reseller Email</th>
-                <th>Plan Title</th>
-                <th>Amount</th>
-                <th>Credit Points</th>
-                <th>Status</th>
-                <th>Transaction ID</th>
-                <th>Created At</th>
+                <th className="px-2 py-2">Title</th>
+                <th>Description</th>
+                <th className="">Status</th>
+                <th>Created At (UTC)</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {billingData
-                .slice(
-                  (currentPage - 1) * recordsPerPage,
-                  currentPage * recordsPerPage
-                )
-                .map((item) => (
-                  <tr key={item.id} className="border-b border-gray-800">
-                    <td className="py-2 ">{item.id}</td>
-                    <td className="px-10">{item.reseller}</td>
-                    <td>{item.email}</td>
-                    <td className="px-5">{item.plan}</td>
-                    <td className="px-5">{item.amount}</td>
-                    <td className="px-8">{item.points}</td>
-                    <td>{item.status}</td>
-                    <td className="px-4">{item.transactionId}</td>
-                    <td>{item.date}</td>
-                  </tr>
-                ))}
+              {TicketsData.slice(
+                (currentPage - 1) * recordsPerPage,
+                currentPage * recordsPerPage
+              ).map((item) => (
+                <tr key={item.id} className="border-b border-gray-800">
+                  <td className="py-2 ">{item.Title}</td>
+                  <td className="">{item.description}</td>
+
+                  <td className="">{item.status}</td>
+                  <td className="">{item.created}</td>
+                  <td className="">{item.Actions}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
           {/* Pagination and Show Dropdown */}
