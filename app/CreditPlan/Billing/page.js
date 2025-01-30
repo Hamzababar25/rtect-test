@@ -1,0 +1,121 @@
+"use client";
+import { useState } from "react";
+import { Search, ChevronRight, ChevronLeft } from "lucide-react";
+import Header from "@/app/Header";
+
+export default function Billing() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [recordsPerPage, setRecordsPerPage] = useState(10);
+
+  const totalPages = Math.ceil(20 / recordsPerPage);
+  const billingData = Array.from({ length: 22 }, (_, i) => ({
+    id: i + 1,
+    reseller: "abc",
+    email: "abc@gmail.com",
+    plan: "PRO",
+    amount: "$10",
+    points: 432,
+    status: ["Active", "Pause", "Inactive"][i % 3],
+    transactionId: "ID:234935",
+    date: "11/03/25 AM",
+  }));
+
+  const handleRecordsChange = (e) => {
+    setRecordsPerPage(Number(e.target.value));
+    setCurrentPage(1);
+  };
+
+  return (
+    <div className="flex h-screen bg-black text-white">
+      {/* Main Content */}
+      <div className="flex-1 p-6">
+        <Header />
+        {/* Billing Table */}
+        <div className="bg-[#14081E] p-6 px-8 mt-6 rounded-lg">
+          <h3 className="text-3xl mb-10">Billing Record</h3>
+          <div className="relative mb-8 w-1/4  h-12">
+            <input
+              type="text"
+              className="w-full p-2 bg-[#231231]  rounded-lg pl-4 pr-10 h-12"
+              placeholder="Search"
+            />
+            <Search
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+              size={20}
+            />
+          </div>
+          <table className="w-full text-left">
+            <thead>
+              <tr className="text-gray-400 border-b border-gray-800">
+                <th className="py-2">Order ID</th>
+                <th>Reseller Name</th>
+                <th>Reseller Email</th>
+                <th>Plan Title</th>
+                <th>Amount</th>
+                <th>Credit Points</th>
+                <th>Status</th>
+                <th>Transaction ID</th>
+                <th>Created At</th>
+              </tr>
+            </thead>
+            <tbody>
+              {billingData
+                .slice(
+                  (currentPage - 1) * recordsPerPage,
+                  currentPage * recordsPerPage
+                )
+                .map((item) => (
+                  <tr key={item.id} className="border-b border-gray-800">
+                    <td className="py-2 ">{item.id}</td>
+                    <td className="px-10">{item.reseller}</td>
+                    <td>{item.email}</td>
+                    <td className="px-5">{item.plan}</td>
+                    <td className="px-5">{item.amount}</td>
+                    <td className="px-8">{item.points}</td>
+                    <td>{item.status}</td>
+                    <td className="px-4">{item.transactionId}</td>
+                    <td>{item.date}</td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+          {/* Pagination and Show Dropdown */}
+          <div className="flex justify-between items-center mt-8">
+            <div className="flex items-center gap-4">
+              <span>Show</span>
+              <select
+                className="bg-[#14081E] p-1 px-4 rounded border"
+                value={recordsPerPage}
+                onChange={handleRecordsChange}
+              >
+                <option value={10}>10</option>
+                <option value={5}>5</option>
+              </select>
+            </div>
+            <div className="flex items-center gap-4">
+              <span>
+                {currentPage} out of {Math.ceil(20 / recordsPerPage)}
+              </span>
+              <div className="flex gap-2">
+                <button
+                  className="p-2 bg-gray-700 rounded"
+                  disabled={currentPage === 1}
+                  onClick={() => setCurrentPage(currentPage - 1)}
+                >
+                  <ChevronLeft size={20} />
+                </button>
+                <button
+                  className="p-2 bg-gray-700 rounded"
+                  disabled={currentPage === Math.ceil(20 / recordsPerPage)}
+                  onClick={() => setCurrentPage(currentPage + 1)}
+                >
+                  <ChevronRight size={20} />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
