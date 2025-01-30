@@ -56,7 +56,7 @@ export default function TicketsList() {
                 (currentPage - 1) * recordsPerPage,
                 currentPage * recordsPerPage
               ).map((item) => (
-                <tr key={item.id} className="border-b border-gray-800">
+                <tr key={item.title} className="border-b border-gray-800">
                   <td className="py-2 ">{item.Title}</td>
                   <td className="">{item.description}</td>
 

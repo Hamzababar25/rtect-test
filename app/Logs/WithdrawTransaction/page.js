@@ -60,7 +60,7 @@ export default function WithdrawTrasaction() {
                 (currentPage - 1) * recordsPerPage,
                 currentPage * recordsPerPage
               ).map((item) => (
-                <tr key={item.id} className="border-b border-gray-800">
+                <tr key={item.credit} className="border-b border-gray-800">
                   <td className="py-2 ">{item.Type}</td>
                   <td className="px-6">{item.credit}</td>
 
