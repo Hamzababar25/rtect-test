@@ -7,8 +7,7 @@ export default function Billing() {
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage, setRecordsPerPage] = useState(10);
 
-  const totalPages = Math.ceil(20 / recordsPerPage);
-  const billingData = Array.from({ length: 22 }, (_, i) => ({
+  const billingData = Array.from({ length: 50 }, (_, i) => ({
     id: i + 1,
     reseller: "abc",
     email: "abc@gmail.com",
@@ -19,6 +18,7 @@ export default function Billing() {
     transactionId: "ID:234935",
     date: "11/03/25 AM",
   }));
+  const totalPages = Math.ceil(billingData.length / recordsPerPage);
 
   const handleRecordsChange = (e) => {
     setRecordsPerPage(Number(e.target.value));
@@ -27,7 +27,6 @@ export default function Billing() {
 
   return (
     <div className="flex h-screen bg-black text-white">
-      {/* Main Content */}
       <div className="flex-1 p-6">
         <Header />
         {/* Billing Table */}
@@ -92,21 +91,21 @@ export default function Billing() {
                 <option value={5}>5</option>
               </select>
             </div>
-            <div className="flex items-center gap-4">
-              <span>
-                {currentPage} out of {Math.ceil(20 / recordsPerPage)}
+            <div className="space-y-3">
+              <span className="pl-1">
+                {currentPage} out of {totalPages}
               </span>
-              <div className="flex gap-2">
+              <div className="flex gap-1 ">
                 <button
-                  className="p-2 bg-gray-700 rounded"
+                  className="p-2 px-2 bg-[#3D2253]  rounded w-10"
                   disabled={currentPage === 1}
                   onClick={() => setCurrentPage(currentPage - 1)}
                 >
                   <ChevronLeft size={20} />
                 </button>
                 <button
-                  className="p-2 bg-gray-700 rounded"
-                  disabled={currentPage === Math.ceil(20 / recordsPerPage)}
+                  className="p-2 px-2 bg-[#3D2253] rounded w-10"
+                  disabled={currentPage === totalPages}
                   onClick={() => setCurrentPage(currentPage + 1)}
                 >
                   <ChevronRight size={20} />
