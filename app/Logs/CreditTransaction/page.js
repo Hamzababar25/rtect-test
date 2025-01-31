@@ -102,16 +102,27 @@ export default function CreditTrasaction() {
               <span className="pl-1">
                 {currentPage} out of {totalPages}
               </span>
-              <div className="flex gap-1 ">
+              <div className="flex gap-1">
+                {/* Previous Button */}
                 <button
-                  className="p-2 px-2 bg-[#3D2253]  rounded w-10"
+                  className={`p-2 px-2 rounded w-10 transition-all ${
+                    currentPage === 1
+                      ? "bg-gray-600 cursor-not-allowed opacity-50"
+                      : "bg-[#3D2253] hover:bg-[#502E6D] cursor-pointer"
+                  }`}
                   disabled={currentPage === 1}
                   onClick={() => setCurrentPage(currentPage - 1)}
                 >
                   <ChevronLeft size={20} />
                 </button>
+
+                {/* Next Button */}
                 <button
-                  className="p-2 px-2 bg-[#3D2253] rounded w-10"
+                  className={`p-2 px-2 rounded w-10 transition-all ${
+                    currentPage === totalPages
+                      ? "bg-gray-600 cursor-not-allowed opacity-50"
+                      : "bg-[#3D2253] hover:bg-[#502E6D] cursor-pointer"
+                  }`}
                   disabled={currentPage === totalPages}
                   onClick={() => setCurrentPage(currentPage + 1)}
                 >
