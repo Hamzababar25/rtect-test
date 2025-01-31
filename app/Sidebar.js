@@ -210,7 +210,7 @@ export default function Sidebar() {
             <div
               onClick={() => setIsLogsOpen(!isLogsOpen)}
               className={`flex items-center justify-between cursor-pointer p-2 rounded-lg transition-all ${
-                pathname.startsWith("/logs")
+                pathname.startsWith("/Logs")
                   ? "bg-gradient-to-r from-[#3CCACC] to-[#8E37D7] text-white py-4 px-3"
                   : ""
               } hover:bg-gradient-to-r from-[#3CCACC] to-[#8E37D7] py-4 px-3`}
@@ -237,8 +237,8 @@ export default function Sidebar() {
                 </li>
                 <li>
                   <Link
-                    href="/Logs/CreditTransactions"
-                    className={dropdownLinkClass("/Logs/CreditTransactions")}
+                    href="/Logs/CreditTransaction"
+                    className={dropdownLinkClass("/Logs/CreditTransaction")}
                   >
                     {" "}
                     <span className="flex items-center gap-3">
@@ -298,7 +298,7 @@ export default function Sidebar() {
             )}
           </li>
           <li>
-            <Link href="/dashboard" className={linkClass("/dashboard")}>
+            <Link href="/dashboardd" className={linkClass("/dashboardd")}>
               <RxDashboard className="mr-3 text-lg" />
               Offer & Notification
             </Link>
@@ -389,7 +389,10 @@ export default function Sidebar() {
             )}
           </li>
           <li>
-            <Link href="/dashboard" className={linkClass("/dashboard")}>
+            <Link
+              href="/dashboard/public"
+              className={linkClass("/dashboard/public")}
+            >
               <RxDashboard className="mr-3 text-lg" />
               Profile Settings
             </Link>

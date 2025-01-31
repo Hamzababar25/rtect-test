@@ -24,7 +24,7 @@ export default function CreditTrasaction() {
   };
 
   return (
-    <div className="flex h-screen bg-black text-white">
+    <div className="flex h-fit bg-black text-white">
       <div className="flex-1 p-6">
         <Header />
 
