@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Search, ChevronRight, ChevronLeft } from "lucide-react";
-import Header from "@/app/Header";
+import Header from "@/components/Header";
 
 export default function WithdrawTrasaction() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,10 +32,10 @@ export default function WithdrawTrasaction() {
 
   return (
     <div className="flex h-fit bg-black text-white">
-      <div className="flex-1 p-6">
-        <Header />
+      <div className="flex-1  p-6">
+        {/* <Header /> */}
 
-        <div className="bg-[#14081E] p-6 px-8 mt-6 rounded-lg">
+        <div className="bg-[#14081E] p-6 px-8  rounded-lg">
           <h3 className="text-3xl mb-10">
             Withdraw Point Sharing Transaction Logs:
           </h3>

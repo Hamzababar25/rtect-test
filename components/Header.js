@@ -1,6 +1,6 @@
 export default function Header() {
   return (
-    <header className="flex items-center justify-between mb-8">
+    <header className="flex items-center justify-between  p-6">
       <div>
         <h1 className="text-3xl font-bold text-white font-roboto">
           Welcome Back, Ali 👋

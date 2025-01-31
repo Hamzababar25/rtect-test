@@ -1,11 +1,10 @@
-import Header from "@/app/Header";
 import React from "react";
 
 const PaymentPlan = () => {
   return (
-    <main className="flex-1 p-8">
-      <Header />
-      <section className="grid lg:grid-cols-2 xl:grid-cols-3 gap-6 mt-6 bg-[#14081E] p-10">
+    <main className="flex-1 p-6">
+      {/* <Header /> */}
+      <section className="grid lg:grid-cols-2 xl:grid-cols-3 gap-6  bg-[#14081E] p-10">
         {Array.from({ length: 6 }).map((_, index) => (
           <div
             key={index}

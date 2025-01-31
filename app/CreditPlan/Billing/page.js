@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Search, ChevronRight, ChevronLeft } from "lucide-react";
-import Header from "@/app/Header";
+import Header from "@/components/Header";
 
 export default function Billing() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -37,9 +37,9 @@ export default function Billing() {
   return (
     <div className="flex h-fit bg-black text-white">
       <div className="flex-1 p-6">
-        <Header />
+        {/* <Header /> */}
         {/* Billing Table */}
-        <div className="bg-[#14081E] p-6 px-8 mt-6 rounded-lg">
+        <div className="bg-[#14081E] p-6 px-8  rounded-lg">
           <h3 className="text-3xl mb-10">Billing Record</h3>
           {/* Search Bar */}
           <div className="relative mb-8 w-1/4 h-12">

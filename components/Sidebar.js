@@ -623,7 +623,7 @@ export default function Sidebar() {
         />
       </div>
 
-      <nav className="px-4">
+      <nav className="px-4 mt-5">
         <ul className="space-y-1">
           {menuItems.map((item, index) => {
             const isOpen = openStates[item.name] || false;
