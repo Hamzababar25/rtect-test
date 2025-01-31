@@ -9,7 +9,7 @@ export default function Header() {
           Here's what's happening with your store today.
         </p>
       </div>
-      <div className="flex items-center gap-16  pr-16">
+      <div className="flex items-center xl:gap-10  xl:pr-16 sm:gap-2 sm:pr-2">
         <span className="bg-[#14081E] text-white px-4 py-2 rounded-md">
           Credit Points: 0
         </span>

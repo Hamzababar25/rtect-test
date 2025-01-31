@@ -206,7 +206,7 @@ export default function Sidebar() {
     } hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r from-[#3CCACC] to-[#8E37D7]`;
 
   return (
-    <aside className="w-64 bg-[#14081E] h-screen fixed text-white overflow-y-auto scrollbar-hide">
+    <aside className="w-64 bg-[#14081E] h-full fixed text-white overflow-y-auto scrollbar-hide">
       {/* Logo */}
       <div className="text-center">
         <Image
