@@ -6,19 +6,28 @@ import Header from "@/app/Header";
 export default function Billing() {
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage, setRecordsPerPage] = useState(10);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const billingData = Array.from({ length: 50 }, (_, i) => ({
     id: i + 1,
     reseller: "abc",
-    email: "abc@gmail.com",
+    email: `abc${i}@gmail.com`, // Unique emails for search functionality
     plan: "PRO",
     amount: "$10",
     points: 432,
     status: ["Active", "Pause", "Inactive"][i % 3],
-    transactionId: "ID:234935",
-    date: "11/03/25 ",
+    transactionId: `ID:234935${i}`,
+    date: "11/03/25",
   }));
-  const totalPages = Math.ceil(billingData.length / recordsPerPage);
+
+  const filteredData = billingData.filter((item) =>
+    Object.values(item)
+      .join(" ")
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase())
+  );
+
+  const totalPages = Math.ceil(filteredData.length / recordsPerPage);
 
   const handleRecordsChange = (e) => {
     setRecordsPerPage(Number(e.target.value));
@@ -32,17 +41,21 @@ export default function Billing() {
         {/* Billing Table */}
         <div className="bg-[#14081E] p-6 px-8 mt-6 rounded-lg">
           <h3 className="text-3xl mb-10">Billing Record</h3>
-          <div className="relative mb-8 w-1/4  h-12">
+          {/* Search Bar */}
+          <div className="relative mb-8 w-1/4 h-12">
             <input
               type="text"
-              className="w-full p-2 bg-[#231231]  rounded-lg pl-4 pr-10 h-12"
+              className="w-full p-2 bg-[#231231] rounded-lg pl-4 pr-10 h-12"
               placeholder="Search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
             <Search
               className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
               size={20}
             />
           </div>
+          {/* Table */}
           <table className="w-full text-left">
             <thead>
               <tr className="text-gray-400 border-b border-gray-800">
@@ -58,14 +71,14 @@ export default function Billing() {
               </tr>
             </thead>
             <tbody>
-              {billingData
+              {filteredData
                 .slice(
                   (currentPage - 1) * recordsPerPage,
                   currentPage * recordsPerPage
                 )
                 .map((item) => (
                   <tr key={item.id} className="border-b border-gray-800">
-                    <td className="py-2 ">{item.id}</td>
+                    <td className="py-2">{item.id}</td>
                     <td className="px-10">{item.reseller}</td>
                     <td>{item.email}</td>
                     <td className="px-5">{item.plan}</td>
@@ -95,9 +108,9 @@ export default function Billing() {
               <span className="pl-1">
                 {currentPage} out of {totalPages}
               </span>
-              <div className="flex gap-1 ">
+              <div className="flex gap-1">
                 <button
-                  className="p-2 px-2 bg-[#3D2253]  rounded w-10"
+                  className="p-2 px-2 bg-[#3D2253] rounded w-10"
                   disabled={currentPage === 1}
                   onClick={() => setCurrentPage(currentPage - 1)}
                 >

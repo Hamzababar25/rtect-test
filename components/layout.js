@@ -1,4 +1,4 @@
-import Sidebar from "@/app/Sidebar";
+import Sidebar from "@/components/Sidebar";
 
 export default function Layout({ children }) {
   return (

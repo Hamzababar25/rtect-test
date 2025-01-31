@@ -6,6 +6,7 @@ import Header from "@/app/Header";
 export default function CreditTrasaction() {
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage, setRecordsPerPage] = useState(10);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const CreditData = Array.from({ length: 50 }, (_, i) => ({
     Type: "AXONLAYER",
@@ -16,7 +17,14 @@ export default function CreditTrasaction() {
 
     date: "11/03/25, 12:00:00 AM ",
   }));
-  const totalPages = Math.ceil(CreditData.length / recordsPerPage);
+  const filteredData = CreditData.filter((item) =>
+    Object.values(item)
+      .join(" ")
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase())
+  );
+
+  const totalPages = Math.ceil(filteredData.length / recordsPerPage);
 
   const handleRecordsChange = (e) => {
     setRecordsPerPage(Number(e.target.value));
@@ -32,11 +40,13 @@ export default function CreditTrasaction() {
           <h3 className="text-3xl mb-10">
             Credit Point Sharing Transaction Logs:
           </h3>
-          <div className="relative mb-8 w-1/4  h-12">
+          <div className="relative mb-8 w-1/4 h-12">
             <input
               type="text"
-              className="w-full p-2 bg-[#231231]  rounded-lg pl-4 pr-10 h-12"
+              className="w-full p-2 bg-[#231231] rounded-lg pl-4 pr-10 h-12"
               placeholder="Search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
             <Search
               className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
@@ -56,21 +66,23 @@ export default function CreditTrasaction() {
               </tr>
             </thead>
             <tbody>
-              {CreditData.slice(
-                (currentPage - 1) * recordsPerPage,
-                currentPage * recordsPerPage
-              ).map((item) => (
-                <tr key={item.credit} className="border-b border-gray-800">
-                  <td className="py-2 ">{item.Type}</td>
-                  <td className="px-6">{item.credit}</td>
+              {filteredData
+                .slice(
+                  (currentPage - 1) * recordsPerPage,
+                  currentPage * recordsPerPage
+                )
+                .map((item) => (
+                  <tr key={item.credit} className="border-b border-gray-800">
+                    <td className="py-2 ">{item.Type}</td>
+                    <td className="px-6">{item.credit}</td>
 
-                  <td className="">{item.received}</td>
-                  <td className="">{item.added}</td>
-                  <td className="">{item.created}</td>
+                    <td className="">{item.received}</td>
+                    <td className="">{item.added}</td>
+                    <td className="">{item.created}</td>
 
-                  <td className="">{item.date}</td>
-                </tr>
-              ))}
+                    <td className="">{item.date}</td>
+                  </tr>
+                ))}
             </tbody>
           </table>
           {/* Pagination and Show Dropdown */}

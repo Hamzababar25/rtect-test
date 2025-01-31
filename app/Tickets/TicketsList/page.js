@@ -6,7 +6,7 @@ import Header from "@/app/Header";
 export default function TicketsList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage, setRecordsPerPage] = useState(10);
-
+  const [searchQuery, setSearchQuery] = useState("");
   const TicketsData = Array.from({ length: 50 }, (_, i) => ({
     Title: `abc-${String.fromCharCode(65 + (i % 26))}`,
     description: "description here",
@@ -16,7 +16,15 @@ export default function TicketsList() {
 
     Actions: "Actions ",
   }));
-  const totalPages = Math.ceil(TicketsData.length / recordsPerPage);
+
+  const filteredData = TicketsData.filter((item) =>
+    Object.values(item)
+      .join(" ")
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase())
+  );
+
+  const totalPages = Math.ceil(filteredData.length / recordsPerPage);
 
   const handleRecordsChange = (e) => {
     setRecordsPerPage(Number(e.target.value));
@@ -30,11 +38,13 @@ export default function TicketsList() {
 
         <div className="bg-[#14081E] p-6 px-8 mt-6 rounded-lg">
           <h3 className="text-3xl mb-10">Tickets List</h3>
-          <div className="relative mb-8 w-1/4  h-12">
+          <div className="relative mb-8 w-1/4 h-12">
             <input
               type="text"
-              className="w-full p-2 bg-[#231231]  rounded-lg pl-4 pr-10 h-12"
+              className="w-full p-2 bg-[#231231] rounded-lg pl-4 pr-10 h-12"
               placeholder="Search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
             <Search
               className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
@@ -52,19 +62,21 @@ export default function TicketsList() {
               </tr>
             </thead>
             <tbody>
-              {TicketsData.slice(
-                (currentPage - 1) * recordsPerPage,
-                currentPage * recordsPerPage
-              ).map((item) => (
-                <tr key={item.Title} className="border-b border-gray-800">
-                  <td className="py-2 ">{item.Title}</td>
-                  <td className="">{item.description}</td>
+              {filteredData
+                .slice(
+                  (currentPage - 1) * recordsPerPage,
+                  currentPage * recordsPerPage
+                )
+                .map((item) => (
+                  <tr key={item.Title} className="border-b border-gray-800">
+                    <td className="py-2 ">{item.Title}</td>
+                    <td className="">{item.description}</td>
 
-                  <td className="">{item.status}</td>
-                  <td className="">{item.created}</td>
-                  <td className="">{item.Actions}</td>
-                </tr>
-              ))}
+                    <td className="">{item.status}</td>
+                    <td className="">{item.created}</td>
+                    <td className="">{item.Actions}</td>
+                  </tr>
+                ))}
             </tbody>
           </table>
           {/* Pagination and Show Dropdown */}

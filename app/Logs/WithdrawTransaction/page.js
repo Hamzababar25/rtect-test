@@ -6,6 +6,7 @@ import Header from "@/app/Header";
 export default function WithdrawTrasaction() {
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage, setRecordsPerPage] = useState(10);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const WithdrawData = Array.from({ length: 50 }, (_, i) => ({
     Type: "AXONLAYER",
@@ -16,7 +17,13 @@ export default function WithdrawTrasaction() {
 
     date: "11/03/25, 12:00:00 AM ",
   }));
-  const totalPages = Math.ceil(WithdrawData.length / recordsPerPage);
+  const filteredData = WithdrawData.filter((item) =>
+    Object.values(item)
+      .join(" ")
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase())
+  );
+  const totalPages = Math.ceil(filteredData.length / recordsPerPage);
 
   const handleRecordsChange = (e) => {
     setRecordsPerPage(Number(e.target.value));
@@ -32,11 +39,13 @@ export default function WithdrawTrasaction() {
           <h3 className="text-3xl mb-10">
             Withdraw Point Sharing Transaction Logs:
           </h3>
-          <div className="relative mb-8 w-1/4  h-12">
+          <div className="relative mb-8 w-1/4 h-12">
             <input
               type="text"
-              className="w-full p-2 bg-[#231231]  rounded-lg pl-4 pr-10 h-12"
+              className="w-full p-2 bg-[#231231] rounded-lg pl-4 pr-10 h-12"
               placeholder="Search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
             <Search
               className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
@@ -56,21 +65,23 @@ export default function WithdrawTrasaction() {
               </tr>
             </thead>
             <tbody>
-              {WithdrawData.slice(
-                (currentPage - 1) * recordsPerPage,
-                currentPage * recordsPerPage
-              ).map((item) => (
-                <tr key={item.credit} className="border-b border-gray-800">
-                  <td className="py-2 ">{item.Type}</td>
-                  <td className="px-6">{item.credit}</td>
+              {filteredData
+                .slice(
+                  (currentPage - 1) * recordsPerPage,
+                  currentPage * recordsPerPage
+                )
+                .map((item) => (
+                  <tr key={item.credit} className="border-b border-gray-800">
+                    <td className="py-2 ">{item.Type}</td>
+                    <td className="px-6">{item.credit}</td>
 
-                  <td className="">{item.received}</td>
-                  <td className="">{item.added}</td>
-                  <td className="">{item.created}</td>
+                    <td className="">{item.received}</td>
+                    <td className="">{item.added}</td>
+                    <td className="">{item.created}</td>
 
-                  <td className="">{item.date}</td>
-                </tr>
-              ))}
+                    <td className="">{item.date}</td>
+                  </tr>
+                ))}
             </tbody>
           </table>
           {/* Pagination and Show Dropdown */}
@@ -90,16 +101,27 @@ export default function WithdrawTrasaction() {
               <span className="pl-1">
                 {currentPage} out of {totalPages}
               </span>
-              <div className="flex gap-1 ">
+              <div className="flex gap-1">
+                {/* Previous Button */}
                 <button
-                  className="p-2 px-2 bg-[#3D2253]  rounded w-10"
+                  className={`p-2 px-2 rounded w-10 transition-all ${
+                    currentPage === 1
+                      ? "bg-gray-600 cursor-not-allowed opacity-50"
+                      : "bg-[#3D2253] hover:bg-[#502E6D] cursor-pointer"
+                  }`}
                   disabled={currentPage === 1}
                   onClick={() => setCurrentPage(currentPage - 1)}
                 >
                   <ChevronLeft size={20} />
                 </button>
+
+                {/* Next Button */}
                 <button
-                  className="p-2 px-2 bg-[#3D2253] rounded w-10"
+                  className={`p-2 px-2 rounded w-10 transition-all ${
+                    currentPage === totalPages
+                      ? "bg-gray-600 cursor-not-allowed opacity-50"
+                      : "bg-[#3D2253] hover:bg-[#502E6D] cursor-pointer"
+                  }`}
                   disabled={currentPage === totalPages}
                   onClick={() => setCurrentPage(currentPage + 1)}
                 >

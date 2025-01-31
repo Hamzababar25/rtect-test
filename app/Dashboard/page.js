@@ -8,7 +8,7 @@ const Dashboard = () => {
     <main className="flex-1 p-8">
       <Header />
 
-      <section className="grid grid-cols-3 gap-2 mt-12 2xl:w-11/12 mx-auto">
+      <section className="grid grid-cols-3 lg:grid-cols-[1fr_1fr_1.5fr] xl:grid-cols-3 gap-2 mt-12 2xl:w-11/12 mx-auto">
         {/* Stat Cards */}
         <div className="bg-[#14081E]  flex items-center h-32 p-4 pl-8 rounded-2xl shadow-md">
           <div className="w-16 h-16 bg-[#2d1541] flex items-center justify-center rounded-lg">
@@ -57,7 +57,7 @@ const Dashboard = () => {
         </div>
 
         {/* Download Section */}
-        <div className="bg-[#14081E]  p-6 rounded-lg shadow-lg text-white">
+        <div className="bg-[#14081E] p-6 rounded-lg shadow-lg text-white w-full md:col-span-2 lg:col-span-2 xl:col-span-1">
           <h2 className="text-lg font-bold">Download Reseller Credit Share</h2>
           <p className="mt-3 font-semibold">Report</p>
 
@@ -100,7 +100,7 @@ const Dashboard = () => {
         </div>
 
         {/* Illustration Section */}
-        <div className="col-span-1 p-6 bg-[#14081E] rounded-2xl shadow-md">
+        <div className="lg:col-span-2 xl:col-span-1 p-6 bg-[#14081E] rounded-2xl shadow-md">
           <h2 className="text-xl font-semibold text-white mb-4">
             Monthly Activation Trends
           </h2>
